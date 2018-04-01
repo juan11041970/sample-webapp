@@ -12,5 +12,6 @@ class GroovyScratch {
         Collections.sort(strings);
         print("\n")
         print(strings)
+        print("\n")
     }
 }

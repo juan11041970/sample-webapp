@@ -7,11 +7,18 @@
   <version>1.0-SNAPSHOT</version>
   <name>WebApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
+    <properties>
+        <gmavenVersion>1.4</gmavenVersion>
+        <gmavenProviderSelection>2.0</gmavenProviderSelection>
+        <groovyVersion>2.0.0</groovyVersion>
+    </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
 
@@ -21,38 +28,72 @@
       <version>1.7.5</version>
     </dependency>
 
-    <!--<dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.5</version>
-    </dependency>-->
-     <!-- <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jdk14</artifactId>
-          <version>1.7.5</version>
-      </dependency>-->
       <dependency>
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
           <version>1.0.13</version>
       </dependency>
+
+      <dependency>
+          <groupId>org.codehaus.groovy</groupId>
+          <artifactId>groovy-all</artifactId>
+          <version>${groovyVersion}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.spockframework</groupId>
+          <artifactId>spock-core</artifactId>
+          <version>1.0-groovy-2.4</version>
+          <scope>test</scope>
+      </dependency>
+
+
   </dependencies>
+
+    <!--<pluginRepositories>
+        <pluginRepository>
+            <id>bintray</id>
+            <name>Groovy Bintray</name>
+            <url>https://dl.bintray.com/groovy/maven</url>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>-->
+
   <build>
+
     <finalName>sample-webapp</finalName>
-     <!-- <plugins>
+      <plugins>
           <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-plugin</artifactId>
-              <version>2.20.1</version>
+              <groupId>org.codehaus.gmaven</groupId>
+              <artifactId>gmaven-plugin</artifactId>
+              <version>${gmavenVersion}</version>
               <configuration>
-                  <systemProperties>
-                      <property>
-                          <name>java.util.logging.config.file</name>
-                          <value>logging.propertiess</value>
-                      </property>
-                  </systemProperties>
+                  <providerSelection>${gmavenProviderSelection}</providerSelection>
+                  <sourceEncoding>UTF-8</sourceEncoding>
               </configuration>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>generateStubs</goal>
+                          <goal>compile</goal>
+                          <goal>generateTestStubs</goal>
+                          <goal>testCompile</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <dependencies>
+                  <dependency>
+                      <groupId>org.codehaus.groovy</groupId>
+                      <artifactId>groovy-all</artifactId>
+                      <version>${groovyVersion}</version>
+                  </dependency>
+              </dependencies>
           </plugin>
-      </plugins>-->
+      </plugins>
   </build>
 </project>

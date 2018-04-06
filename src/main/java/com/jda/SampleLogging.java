@@ -13,5 +13,6 @@ public class SampleLogging {
                 LOGGER.info("Hello {}", i);
             else
                 LOGGER.debug("I am on index {}", i);
+            
     }
 }

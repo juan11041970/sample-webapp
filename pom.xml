@@ -11,15 +11,15 @@
     <properties>
         <gmavenVersion>1.4</gmavenVersion>
         <gmavenProviderSelection>2.0</gmavenProviderSelection>
-        <groovyVersion>2.0.0</groovyVersion>
+        <groovyVersion>2.4.12</groovyVersion>
     </properties>
 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
+      <version>4.8.2</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -68,32 +68,47 @@
 
     <finalName>sample-webapp</finalName>
       <plugins>
-          <plugin>
-              <groupId>org.codehaus.gmaven</groupId>
-              <artifactId>gmaven-plugin</artifactId>
-              <version>${gmavenVersion}</version>
-              <configuration>
-                  <providerSelection>${gmavenProviderSelection}</providerSelection>
-                  <sourceEncoding>UTF-8</sourceEncoding>
-              </configuration>
-              <executions>
-                  <execution>
-                      <goals>
-                          <goal>generateStubs</goal>
-                          <goal>compile</goal>
-                          <goal>generateTestStubs</goal>
-                          <goal>testCompile</goal>
-                      </goals>
-                  </execution>
-              </executions>
-              <dependencies>
-                  <dependency>
-                      <groupId>org.codehaus.groovy</groupId>
-                      <artifactId>groovy-all</artifactId>
-                      <version>${groovyVersion}</version>
-                  </dependency>
-              </dependencies>
+              <plugin>
+            <groupId>org.codehaus.gmavenplus</groupId>
+            <artifactId>gmavenplus-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>addSources</goal>
+                  <goal>addTestSources</goal>
+                  <goal>generateStubs</goal>
+                  <goal>compile</goal>
+                  <goal>generateTestStubs</goal>
+                  <goal>compileTests</goal>
+                  <goal>removeStubs</goal>
+                  <goal>removeTestStubs</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <!-- if including source jars, use the no-fork goals
+             otherwise both the Groovy sources and Java stub sources
+             will get included in your jar -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <!-- source plugin \> = 2.1 is required to use the no-fork goals -->
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+              <goal>test-jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       </plugins>
   </build>
 </project>

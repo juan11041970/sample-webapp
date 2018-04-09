@@ -20,7 +20,6 @@ class TestAccountDAO {
             },
             createNewAccount: {
                 double balance -> currentId++
-                    println "current id was increased to ${currentId}"
             },
             deleteAccount: {
                 int id ->
@@ -37,6 +36,6 @@ class TestAccountDAO {
         }
 
         mock.createNewAccount(200)
-        assert 3 == currentId
+        assert accounts.size() +1 == currentId
     }
 }

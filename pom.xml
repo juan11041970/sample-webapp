@@ -50,20 +50,6 @@
 
   </dependencies>
 
-    <!--<pluginRepositories>
-        <pluginRepository>
-            <id>bintray</id>
-            <name>Groovy Bintray</name>
-            <url>https://dl.bintray.com/groovy/maven</url>
-            <releases>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>-->
-
   <build>
 
     <finalName>sample-webapp</finalName>
@@ -72,6 +58,7 @@
             <groupId>org.codehaus.gmavenplus</groupId>
             <artifactId>gmavenplus-plugin</artifactId>
             <version>1.6</version>
+
             <executions>
               <execution>
                 <goals>

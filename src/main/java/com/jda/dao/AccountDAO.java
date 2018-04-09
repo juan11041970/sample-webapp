@@ -9,6 +9,6 @@ public interface AccountDAO {
 
     Account findAccountById(int id);
     Collection<Account> findAllAccounts();
-    void createNewAccount(double balance);
+    int createNewAccount(double balance);
     void deleteAccount(int id);
 }

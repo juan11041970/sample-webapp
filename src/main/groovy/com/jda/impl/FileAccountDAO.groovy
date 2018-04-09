@@ -5,7 +5,7 @@ import com.jda.dao.AccountDAO
 
 class FileAccountDAO implements AccountDAO {
 
-    File accountsFile
+    def accountsFile
     Map<Integer, Account> accounts = [:]
     private static int nextId
     boolean dirty
@@ -59,5 +59,9 @@ class FileAccountDAO implements AccountDAO {
 
         accounts.remove(id)
         writeAccountToFile()
+    }
+
+    void setAccountsFile(accountsFile) {
+        this.accountsFile = accountsFile
     }
 }

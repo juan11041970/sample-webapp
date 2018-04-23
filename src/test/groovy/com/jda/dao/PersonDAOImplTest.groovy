@@ -4,6 +4,8 @@ import com.jda.bo.GroovyPerson
 import com.jda.impl.PersonDAOImpl
 import groovyx.net.http.RESTClient
 import org.glassfish.grizzly.http.server.HttpServer
+import org.glassfish.jersey.server.ResourceConfig
+import org.springframework.test.web.reactive.server.WebTestClient
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -16,43 +18,38 @@ class PersonDAOImplTest extends Specification {
 
     PersonDAO dao = new PersonDAOImpl()
 
-    RESTClient client = new RESTClient('http://localhost:8080/restserviceexample', groovyx.net.http.ContentType.JSON)
+//    RESTClient client = new RESTClient("http://localhost:8080/")
+//
+//    @Shared
+//    WebTarget target
+//
+//   @Shared
+//    static HttpServer server
 
-   @Shared
-    static HttpServer server
+//    def setupSpec() {
+//        server = HttpServer.createSimpleServer('http://localhost:8080/')
+//        server.start()
+//
+//        Client c = ClientBuilder.newClient()
+//        target = c.target('http://localhost:8080'.toURI())
+//
+//        println 'server started'
+//    }
+//
+//    def cleanupSpec() {
+//        server?.shutdown()
+//
+//        println 'server shutdown'
+//    }
+//
+//    def 'server is running'() {
+//
+////        def response = client.get(path: "status")
+////        println "response status is: ${response.status}"
+//
+//        expect: server.started
+//    }
 
-    def setupSpec() {
-        server = HttpServer.createSimpleServer()
-        server.start()
-
-
-        println 'server started'
-    }
-
-    def cleanupSpec() {
-        server?.shutdown()
-
-        println 'server shutdown'
-    }
-
-    def 'server is running'() {
-
-        def response = client.get(path: "status")
-        println "response status is: ${response.status}"
-
-        expect: server.started
-    }
-
-    def 'get request returns all people'() {
-
-        when:
-        def response = client.get(path: 'people')
-
-        then:
-        response.status == 200
-        response.contentType == 'application/json'
-
-    }
 
     def 'insert and delete new person'() {
 
@@ -73,5 +70,4 @@ class PersonDAOImplTest extends Specification {
         println 'Done with PersonDAOImpl test'
 
     }
-
 }

@@ -8,7 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
-@Path("/people")
+@Path("people")
 public class PersonResource {
 
     PersonDAO dao = new PersonDAOImpl();

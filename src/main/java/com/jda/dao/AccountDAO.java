@@ -3,7 +3,6 @@ package com.jda.dao;
 import com.jda.bo.Account;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface AccountDAO {
 

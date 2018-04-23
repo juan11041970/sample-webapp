@@ -8,6 +8,15 @@
   <name>WebApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+    <repositories>
+        <repository>
+            <id>snapshot-repository.java.net</id>
+            <name>Java.net Snapshot Repository for Maven</name>
+            <url>https://maven.java.net/content/repositories/snapshots/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
     <properties>
         <gmavenVersion>1.4</gmavenVersion>
         <gmavenProviderSelection>2.0</gmavenProviderSelection>
@@ -18,7 +27,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.2</version>
+      <version>4.12</version>
       <scope>compile</scope>
     </dependency>
 
@@ -44,9 +53,108 @@
           <groupId>org.spockframework</groupId>
           <artifactId>spock-core</artifactId>
           <version>1.0-groovy-2.4</version>
+          <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjrt</artifactId>
+          <version>1.7.3</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>5.0.5.RELEASE</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>5.0.5.RELEASE</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>3.2.8.RELEASE</version>
           <scope>test</scope>
       </dependency>
 
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+          <version>5.0.5.RELEASE</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aspects</artifactId>
+          <version>5.0.5.RELEASE</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>5.0.5.RELEASE    </version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.gebish/geb-core -->
+      <dependency>
+          <groupId>org.gebish</groupId>
+          <artifactId>geb-core</artifactId>
+          <version>0.10.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.43</version>
+          <scope>runtime</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.glassfish.jersey.containers</groupId>
+          <artifactId>jersey-container-servlet</artifactId>
+          <version>2.27</version>
+          <scope>provided</scope>
+      </dependency>
+      <!-- if you are using Jersey client specific features without the server side -->
+      <dependency>
+          <groupId>org.glassfish.jersey.core</groupId>
+          <artifactId>jersey-client</artifactId>
+          <version>2.27</version>
+          <scope>provided</scope>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.glassfish.grizzly/grizzly-http-server -->
+      <dependency>
+          <groupId>org.glassfish.grizzly</groupId>
+          <artifactId>grizzly-http-server</artifactId>
+          <version>2.4.3</version>
+      </dependency>
+
+
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>2.9.5</version>
+      </dependency>
+      <dependency>
+          <artifactId>http-builder</artifactId>
+          <groupId>org.codehaus.groovy.modules.http-builder</groupId>
+          <version>RELEASE</version>
+      </dependency>
 
   </dependencies>
 
@@ -54,11 +162,36 @@
 
     <finalName>sample-webapp</finalName>
       <plugins>
-              <plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.18.1</version>
+              <configuration>
+                  <redirectTestOutputToFile>true</redirectTestOutputToFile>
+              </configuration>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.8</version>
+              <executions>
+                  <execution>
+                      <phase>install</phase>
+                      <goals>
+                          <goal>run</goal>
+                      </goals>
+                      <configuration>
+                          <target>
+                              <delete dir="${project.build.directory}/generated-sources" includeemptydirs="true"/>
+                          </target>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+        <plugin>
             <groupId>org.codehaus.gmavenplus</groupId>
             <artifactId>gmavenplus-plugin</artifactId>
             <version>1.6</version>
-
             <executions>
               <execution>
                 <goals>
@@ -75,9 +208,9 @@
             </executions>
           </plugin>
           <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+          </plugin>
       <plugin>
         <!-- if including source jars, use the no-fork goals
              otherwise both the Groovy sources and Java stub sources
@@ -97,5 +230,6 @@
         </executions>
       </plugin>
       </plugins>
+
   </build>
 </project>

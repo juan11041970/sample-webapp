@@ -48,7 +48,7 @@ class FileAccountDAO implements AccountDAO {
 
     int createNewAccount(double balance) {
 
-        int newId = nextId++
+        int newId = ++nextId
         accounts[newId] = new Account(id: newId, balance: balance)
         writeAccountToFile()
         return newId

@@ -7,6 +7,7 @@ import java.util.Map;
 public class Department {
 
     private int id;
+    private int deptId;
     private String name;
 
     private Map<Integer, Employee> empMap = new HashMap<Integer, Employee>();
@@ -52,5 +53,13 @@ public class Department {
     public Department leftShift(Employee e) {
         hire(e);
         return this;
+    }
+
+    public int getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 }

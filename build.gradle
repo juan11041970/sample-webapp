@@ -1,0 +1,8 @@
+apply plugin: 'groovy'
+//apply plugin: 'eclipse'
+
+task hello {
+    doLast {
+        println 'Hello Gradle'
+    }
+}

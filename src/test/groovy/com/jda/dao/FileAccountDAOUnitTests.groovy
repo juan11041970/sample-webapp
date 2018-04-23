@@ -5,6 +5,8 @@ import com.jda.impl.FileAccountDAO
 import org.junit.Before
 import org.junit.Test
 
+import static org.junit.Assert.*
+
 class FileAccountDAOUnitTests {
 
 
@@ -41,6 +43,7 @@ class FileAccountDAOUnitTests {
     @Test
     void testCreateAndFindNewAccount() {
         int id = dao.createNewAccount(100.0)
+        println "created dao with id ${id}"
         Account local = new Account(id:id,balance:100.0)
         Account fromDao = dao.findAccountById(id)
         assertEquals local.id, fromDao.id

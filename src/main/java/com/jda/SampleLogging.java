@@ -3,6 +3,8 @@ package com.jda;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+
 public class SampleLogging {
 
 //    private static Logger LOGGER = LoggerFactory.getLogger(SampleLogging.class);
@@ -15,4 +17,12 @@ public class SampleLogging {
 //                LOGGER.debug("I am on index {}", i);
 //
 //    }
+
+    public static void main(String[] args) {
+
+        String amount = ".10";
+        BigDecimal b1 = new BigDecimal(amount);
+
+        System.out.println("Done");
+    }
 }

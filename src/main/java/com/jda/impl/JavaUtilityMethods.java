@@ -3,6 +3,7 @@ package com.jda.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.System.out;
 
 public class JavaUtilityMethods  {
 
@@ -38,5 +39,28 @@ public class JavaUtilityMethods  {
         String forward = sb.toString().toLowerCase();
         String backward = sb.reverse().toString().toLowerCase();
         return forward.equals(backward);
+    }
+
+    public static void main (String[] args) {
+        int[] nums =  new int[]  { 3, 3, 6, 7, 9, 12, 2 };
+        int find = 24;
+        boolean found = false;
+
+        for (int i1 = 0; i1 < nums.length; i1++) {
+
+            int current = nums[i1];
+
+            //second loop
+            for (int j1 = i1 + 1; j1 < nums.length; j1++) {
+
+                int total = current * nums[j1];
+
+                if (total == find) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        out.println("Found: " + found);
     }
 }

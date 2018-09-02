@@ -36,10 +36,6 @@ class PersonDAOImpl implements  PersonDAO {
 
     List<GroovyPerson> findAll() {
 
-//        def people = sql.rows( sqlQuery).collect { row ->
-//            new JavaProduct(row.collectEntries { k, v -> [k.toLowerCase(), v]})
-//        }
-
         def query = 'select * from people'
 
        def everyBody =  sql.rows(query).collect { row ->

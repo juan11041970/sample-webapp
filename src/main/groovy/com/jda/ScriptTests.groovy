@@ -27,12 +27,17 @@ class ScriptTests extends GroovyShellTestCase {
      static void main(String[] args) {
 
         ScriptTests scriptTests = new ScriptTests()
-        int[] values = [2, 4, 6, 8, 10 ,12, 14 ]
+        int[] values = [2, 6, 9, 1, 5 ]
         def low = 0
         def high = values.size() - 1
         int numToFind = 1
 
-        scriptTests.doBinarySearch( values, low, high, numToFind)
+        scriptTests.doBinarySearch(values, low, high, numToFind)
+
+         def indexes = scriptTests.findSumInArray(values, 26)
+         println indexes
+
+         scriptTests.twoSum(values, 15)
     }
 
     void doBinarySearch(int[] values, int low, int high, int numToFind) {
@@ -64,4 +69,37 @@ class ScriptTests extends GroovyShellTestCase {
         }
 
     }
+
+    int[] findSumInArray(int[] nums, int find) {
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+
+                if (nums[j] == (find - nums[i])) {
+                    def found = new int[2]
+                    found[0] = i
+                    found[1] = j
+                    return found
+                }
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
 }

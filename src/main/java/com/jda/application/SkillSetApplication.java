@@ -11,24 +11,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class MyApplication  {
+public class SkillSetApplication {
 
-    public MyApplication() {
+    public SkillSetApplication() {
 
     }
 
     public static void main(String... args) throws IOException {
         try {
             XMLInputFactory xif = XMLInputFactory.newFactory();
-            XMLStreamReader xsr = xif.createXMLStreamReader(new FileReader("/Users/juaalvarado/Downloads/soap_response.xml"));
+            XMLStreamReader xsr = xif.createXMLStreamReader(new FileReader("/Users/juaalvarado/Downloads/skill_sets.xml"));
 
-            xsr.nextTag();
-            xsr.nextTag();
-
-
-            JAXBContext jc = JAXBContext.newInstance(WebLoginResult.class);
+            JAXBContext jc = JAXBContext.newInstance(SkillSets.class);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            JAXBElement<WebLoginResult> je = unmarshaller.unmarshal(xsr, WebLoginResult.class);
+            JAXBElement<SkillSets> je = unmarshaller.unmarshal(xsr, SkillSets.class);
 
             System.out.println(je.getName());
             System.out.println(je.getValue());

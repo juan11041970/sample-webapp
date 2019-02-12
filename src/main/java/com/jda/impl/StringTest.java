@@ -10,7 +10,7 @@ public class StringTest {
 
         System.out.println("In main: " + name);
 
-        isPalindrome("racecaar");
+        isPalindrome("racceccar q");
     }
 
     private static void modify(String name) {

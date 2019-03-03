@@ -20,14 +20,14 @@ public class SwapTest {
 
     }
 
-    public static void swap(Point arg1, Point arg2) {
-        arg1.x = 100;
-        arg1.y = 100;
+    public static void swap(Point pnt1, Point pnt2) {
+        pnt1.x = 100;
+        pnt1.y = 100;
 
-        Point temp = arg1;
+        Point temp = pnt1;
 
-        arg1 = arg2;
-        arg2 = temp;
+        pnt1 = pnt2;
+        pnt2 = temp;
 
         System.out.println("Done in swap()");
     }

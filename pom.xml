@@ -33,6 +33,12 @@
   <dependencies>
 
       <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
+          <version>3.2.7.ga</version>
+      </dependency>
+
+      <dependency>
           <groupId>com.thoughtworks.xstream</groupId>
           <artifactId>xstream</artifactId>
           <version>1.4.9</version>

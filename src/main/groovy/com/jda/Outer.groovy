@@ -3,6 +3,7 @@ package com.jda
 class Outer {
 
     private String privateStr = 'private string'
+    int num
 
     def startThread() {
         println "Starting thread"

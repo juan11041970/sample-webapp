@@ -32,3 +32,8 @@ public class SwapTest {
         System.out.println("Done in swap()");
     }
 }
+
+
+//List list = new LinkedList();
+//list.add(new Integer(1));
+//Integer i = list.iterator().next(); //compile error

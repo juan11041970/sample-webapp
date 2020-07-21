@@ -32,7 +32,6 @@ class GroovyScratch {
             assert queryString.contains("$k=$v")
         }
 
-
         SwingBuilder.edtBuilder {
             frame(title:'Hello, Chart!', pack: true,
 

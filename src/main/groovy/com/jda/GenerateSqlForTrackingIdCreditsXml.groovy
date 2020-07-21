@@ -31,38 +31,57 @@ class GenerateSqlForTrackingIdCreditsXml {
 
     static void processAllTrackingIds() {
 
-        String fullFilePath = this.fileNameBaseDir + fileNameBase + ".xml"
-        String xmlSource = new File(fullFilePath).text
+//        String fullFilePath = this.fileNameBaseDir + fileNameBase + ".xml"
+//        String xmlSource = new File(fullFilePath).text
 
-        GPathResult xmlContent = new XmlSlurper().parseText(xmlSource)
-        assert xmlContent instanceof groovy.util.slurpersupport.GPathResult
-        def xmlContentSize = xmlContent.ModifyAdjustment.size()
-        println "Processing: ${xmlContentSize} tracking ids"
+        def fileNameBaseDir = System.getProperty("fileNameBaseDir")
+        def baseDir = new File(fileNameBaseDir + "/request")
+        def files = baseDir.listFiles()
 
-        def xmlRange = 0..xmlContentSize - 1
+        files.each { f ->
 
-        groovy.util.slurpersupport.NodeChildren csrId = xmlContent.CsrId
-        lastReviewer = csrId.text()
+            if (f.name.endsWith(".xml")) {
 
-        def inClauseValues = new StringBuilder()
-        for (n in xmlRange) {
-            def currTrackingId = xmlContent.ModifyAdjustment[n].AdjustmentIDInfo.TrackingId
-            inClauseValues.append("$currTrackingId").append(",")
+                def xmlSource = f.getText()
+                GPathResult xmlContent = new XmlSlurper().parseText(xmlSource)
+                assert xmlContent instanceof groovy.util.slurpersupport.GPathResult
+                def xmlContentSize = xmlContent.ModifyAdjustment.size()
+                println "Processing: ${xmlContentSize} tracking ids"
+
+                def xmlRange = 0..xmlContentSize - 1
+
+                groovy.util.slurpersupport.NodeChildren csrId = xmlContent.CsrId
+                lastReviewer = csrId.text()
+
+                def inClauseValues = new StringBuilder()
+                for (n in xmlRange) {
+                    def currTrackingId = xmlContent.ModifyAdjustment[n].AdjustmentIDInfo.TrackingId
+                    inClauseValues.append("$currTrackingId").append(",")
+                }
+
+                trackingIds = inClauseValues.toString()
+                generateSqlForTrackingIds(f.getName(), baseDir)
+            }
         }
-
-        trackingIds = inClauseValues.toString()
-        generateSqlForTrackingIds()
-
         println "\n"
     }
 
-    static void generateSqlForTrackingIds() {
+    static void generateSqlForTrackingIds(fileName, baseDir) {
 
         //format the sql
         querySql = new Formatter(querySql).format()
         trackingIds = trackingIds.replaceAll(",\$", "")
         querySql = querySql.replaceAll("LAST_REVIEW", lastReviewer)
-        println querySql.replaceAll("inClauseValues", trackingIds)
+
+        def baseDirPath = baseDir.getPath()
+        File newFile = new File(baseDirPath  + "/" +  fileName.substring(0, fileName.indexOf(".")) + ".sql")
+
+        String sqlContent = querySql.replaceAll("inClauseValues", trackingIds)
+
+        newFile.append(fileName.getBytes())
+        newFile.append(sqlContent.getBytes())
+
+        newFile.createNewFile()
 
     }
 

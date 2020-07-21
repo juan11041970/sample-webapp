@@ -4,20 +4,34 @@ import groovy.util.slurpersupport.GPathResult
 
 class GetASFJobResultsFromFiler {
 
-    static int totalResponses
+    static int totalResponses = 0
+    static int totalNotInDispute = 0
+    static int totalASAQueueFull = 0
+    static int totalSuccess = 0
+    static int totalNoDescription = 0
+    static def accountsWithNoErrorDescription = []
+    static int totalTrackingIdsNoDescription = 0
+    static def trackingIdsWithNoErrorDescription = []
 
     static void main(String... args) {
 
         def fileName = System.getProperty("fileName")
         def fileNameBaseDir = System.getProperty("fileNameBaseDir")
-        def fullPath = fileNameBaseDir + fileName
 
 
         println fileNameBaseDir + "\n"
-        println fullPath + "\n"
         processResponse()
 
+        println "\n\n************************************************************************************"
+
         println "Processed ${totalResponses} responses"
+        println "${totalNotInDispute} credits are not in dispute state"
+        println "${totalASAQueueFull} credits returned Code: 1 BILL-ASA QUEUE FUL"
+        println "${totalSuccess} credits returned Code: 0"
+        println "${totalNoDescription} credits returned Code: 1 NO DESCRIPTION"
+        println "${totalTrackingIdsNoDescription} tracking ids returned Code: 1 NO DESCRIPTION"
+        println accountsWithNoErrorDescription
+        println trackingIdsWithNoErrorDescription
 
     }
 
@@ -27,7 +41,7 @@ class GetASFJobResultsFromFiler {
 //        println url
         def baseDirForFilerJobs = System.getProperty("baseDirForFilerJobs")
 
-        def baseDir = new File(baseDirForFilerJobs)
+        def baseDir = new File(baseDirForFilerJobs + "/response")
         def files = baseDir.listFiles()
 
         println "There are ${files.length} files to process"
@@ -57,20 +71,36 @@ class GetASFJobResultsFromFiler {
 
             //processContent(content)
             def accountId = content.ModifyAdjustment.AccountIdentity.Id
+            def trackingId = content.ModifyAdjustment.AdjustmentIDInfo.TrackingId
             def code = content.AdjustmentResult.Code
-            def description = content.AdjustmentResult.Description
+            String description = content.AdjustmentResult.Description
 
             code == 0 ? codeZeroCount++ : codeOneCount++
 
-            if(code == 0) {
-//                println "Account ID: ${accountId} has Code ${code} with description ${description}"
+            if(code == 1) {
+                println "Found Code ${code} with description ${description}"
+
+                if (description != null && description.contains("is not in DISPUTE state")) {
+
+                    totalNotInDispute++;
+                } else if (description != null && description.contains("BILL-ASA QUEUE FUL")) {
+
+                    totalASAQueueFull++
+                } else {
+                    accountsWithNoErrorDescription << accountId
+                    trackingIdsWithNoErrorDescription << trackingId
+                    totalNoDescription++
+                    totalTrackingIdsNoDescription++
+                }
+            } else if (code == 0) {
+                totalSuccess++
             }
 
             totalResponses++
         }
 
 //        println "Processed file ${file}"
-        println "For file ${file.getName()} there are ${codeZeroCount} Code 0 (SUCCESS) and ${codeOneCount} Code 1 (FAILURE)"
+        println "For file ${file.getName()} there are ${codeZeroCount} Code 0 and ${codeOneCount} Code 1"
 
     }
 

@@ -13,8 +13,9 @@ public class SwapTest {
         System.out.println("X: " + pnt2.x + " Y: " +pnt2.y);
         System.out.println(" ");
 
-        swap(pnt1,pnt2);
+        System.out.println("main " + pnt1.hashCode());
 
+        swap(pnt1,pnt2);
         System.out.println("X: " + pnt1.x + " Y:" + pnt1.y);
         System.out.println("X: " + pnt2.x + " Y: " +pnt2.y);
 
@@ -23,6 +24,8 @@ public class SwapTest {
     public static void swap(Point pnt1, Point pnt2) {
         pnt1.x = 100;
         pnt1.y = 100;
+
+        System.out.println("swap" + pnt1.hashCode());
 
         Point temp = pnt1;
 

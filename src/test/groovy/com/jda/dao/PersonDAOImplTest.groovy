@@ -5,7 +5,7 @@ import com.jda.impl.PersonDAOImpl
 import groovyx.net.http.RESTClient
 import org.glassfish.grizzly.http.server.HttpServer
 import org.glassfish.jersey.server.ResourceConfig
-
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -15,7 +15,7 @@ import javax.ws.rs.client.WebTarget
 import javax.ws.rs.core.GenericType
 import javax.ws.rs.core.MediaType;
 
-
+@Ignore
 class PersonDAOImplTest extends Specification {
 
     PersonDAO dao = new PersonDAOImpl()

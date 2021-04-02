@@ -46,15 +46,12 @@ public class JavaUtilityMethods  {
         int find = 24;
         boolean found = false;
 
-        for (int i1 = 0; i1 < nums.length; i1++) {
-
-            int current = nums[i1];
+        for (int i = 0; i < nums.length; i++) {
+            int current = nums[i];
 
             //second loop
-            for (int j1 = i1 + 1; j1 < nums.length; j1++) {
-
-                int total = current * nums[j1];
-
+            for (int j = i + 1; j < nums.length; j++) {
+                int total = current * nums[j];
                 if (total == find) {
                     found = true;
                     break;

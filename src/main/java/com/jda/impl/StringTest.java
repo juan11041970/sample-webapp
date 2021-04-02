@@ -5,21 +5,29 @@ public class StringTest {
     public static void main(String[] args) {
 
         String name = "Sam";
-
-        modify(name);
-
         System.out.println("In main: " + name + "--> " + name.hashCode());
 
-        isPalindrome("racceccar");
-        isPalindrome2("racceccar");
+//        isPalindrome("racceccar");
+//        isPalindrome2("racceccar");
+        isPalindrme("racceccar");
     }
 
-    private static void modify(String name) {
-        name = "John";
-        System.out.println("In modify: " + name + "-->  " + name.hashCode());
+    private static boolean isPalindrme(String word) {
 
+        int left = 0;
+        int right = word.length() - 1;
+        final char[] chars = word.toCharArray();
+
+        while (left < right) {
+            if (chars[left] == chars[right]) {
+                left++;
+                right--;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
-
     private static boolean isPalindrome2(String word) {
 
         int wordLength = word.length();
@@ -27,7 +35,6 @@ public class StringTest {
         char[] chars = word.toCharArray();
 
         for (int i = wordLength -1; i >=0; i--) {
-
             strBuilder.append(chars[i]);
         }
 

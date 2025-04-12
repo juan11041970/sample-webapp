@@ -1,15 +1,48 @@
 package com.jda.impl;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class StringTest {
 
     public static void main(String[] args) {
 
+        longestNonRepeatingSubstring("");
         String name = "Sam";
         System.out.println("In main: " + name + "--> " + name.hashCode());
 
 //        isPalindrome("racceccar");
 //        isPalindrome2("racceccar");
         isPalindrme("racceccar");
+    }
+
+
+
+    public static String longestNonRepeatingSubstring(String str) {
+        int leftSideOfWindow = 0, rightSideOfWindow = 0;
+        Map<Character, Integer> uniqueCharsSet = new HashMap<>();
+        int len = 0;
+        str = "abcbdef";
+//        str = "bbbbb";
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int maxLength = 0;
+        Map<Character, Integer> visitedChars = new HashMap<>();
+
+        for (int start = 0,  end = 0; start < str.length(); start++) {
+            char currentChar = str.charAt(start);
+
+            if (visitedChars.containsKey(currentChar) && visitedChars.get(currentChar) >= end) {
+                end = visitedChars.get(str.charAt(start)) + 1;
+            }
+            maxLength = Math.max(maxLength, start - end + 1);
+            visitedChars.put(currentChar, start);
+        }
+        System.out.println("maxLength: " +  maxLength);
+
+        return "";
     }
 
     private static boolean isPalindrme(String word) {

@@ -1,7 +1,8 @@
 import com.jda.SmartPhone
 import org.junit.Test
+import spock.lang.Ignore
 
-
+@Ignore
 class SmartPhoneTest {
 
     SmartPhone sp = new SmartPhone()

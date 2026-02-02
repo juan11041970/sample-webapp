@@ -115,12 +115,6 @@
           <scope>test</scope>
       </dependency>
 
-      <dependency>
-          <groupId>org.aspectj</groupId>
-          <artifactId>aspectjrt</artifactId>
-          <version>1.7.3</version>
-      </dependency>
-
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
       <dependency>
           <groupId>org.springframework</groupId>
@@ -153,6 +147,12 @@
           <groupId>org.springframework</groupId>
           <artifactId>spring-aspects</artifactId>
           <version>5.0.5.RELEASE</version>
+          <exclusions>
+              <exclusion>
+                  <artifactId>aspectjweaver</artifactId>
+                  <groupId>org.aspectj</groupId>
+              </exclusion>
+          </exclusions>
       </dependency>
 
       <dependency>
